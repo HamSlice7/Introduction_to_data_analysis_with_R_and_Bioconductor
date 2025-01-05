@@ -58,4 +58,12 @@ rna4 <- rna %>%
   
 rna4
 
+#Grouping rna by gene
+rna %>% 
+  group_by(gene)
+
+#Grouping rna by sample
+rna %>% 
+  group_by(sample)
+
   
