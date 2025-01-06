@@ -66,4 +66,34 @@ rna %>%
 rna %>% 
   group_by(sample)
 
+#Utilizing summary() function with group_by() to find the mean expression level for each gene
+rna %>% 
+  group_by(gene) %>% 
+  summarise(mean_expression = mean(expression))
+
+#Finding the mean expression level of all genes in each sample
+rna %>% 
+  group_by(sample) %>% 
+  summarise(mean_expression = mean(expression))
+
+#Finding the mean expression for the time and infection level groups for each gene
+rna %>% 
+  group_by(gene, infection, time) %>% 
+  summarise(mean_expression = mean(expression))
+
+rna %>% 
+  group_by(gene, infection, time) %>% 
+  summarise(mean_expression = mean(expression), median_expression = median(expression))
+
+#Mean expression level of gene “Dok3” by timepoints.
+rna %>% 
+  filter(gene == "Dok3") %>% 
+  group_by(time) %>% 
+  summarise(mean_expression = mean(expression))
+
+#Counting the number of observations for each infection status
+rna %>% 
+  count(infection)
+  
+  
   
