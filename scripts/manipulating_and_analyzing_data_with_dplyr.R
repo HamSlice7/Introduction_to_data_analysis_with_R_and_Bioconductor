@@ -199,3 +199,27 @@ rna %>%
   pivot_wider(names_from = time, values_from = mean_expression) %>% 
   mutate(time_8_vs_0 = `8`/`0`, time_8_vs_4 = `8` /`4`) %>% 
   pivot_longer(names_to = "Time comparisons", values_to = "Fold Change", cols = starts_with("time"))
+
+
+rna_mini <- rna %>% 
+  select(gene, sample, expression) %>% 
+  head(10)
+
+download.file(url = "https://carpentries-incubator.github.io/bioc-intro/data/annot1.csv", destfile = "data/annot1.csv" )
+
+annot1 <- read_csv(file = "data/annot1.csv")
+
+#Using full_join() to join rna_mini and annot1
+full_join(rna_mini, annot1)
+
+download.file(url = "https://carpentries-incubator.github.io/bioc-intro/data/annot2.csv",
+              destfile = "data/annot2.csv")
+annot2 <- read_csv(file = "data/annot2.csv")
+annot2
+
+#joining rna_mini and annot2
+full_join(rna_mini, annot2, by = c("gene" = "external_gene_name"))
+
+
+#exporting rna_wide as a csv file
+write_csv(rna_wide, file = "data_output/rna_wide.csv")
